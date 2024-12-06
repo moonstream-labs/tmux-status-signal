@@ -20,9 +20,9 @@ toggle_status() {
 # Function to set up the key binding
 setup_key_binding() {
     local key_binding="$(tmux show-option -gqv @toggle-status-key)"
-    # Default to 'T' if no custom binding is set
+    # Default to 'S' if no custom binding is set
     if [ -z "$key_binding" ]; then
-        key_binding="T"
+        key_binding="S"
     fi
     
     # Remove existing binding if it exists

@@ -39,7 +39,7 @@ tmux source-file ~/.tmux.conf
 
 ## Configuration
 
-By default, the status bar toggle is bound to `prefix` + <kbd>Ctrl</kbd> + <kbd>T</kbd>.
+By default, the status bar toggle is bound to `prefix` + <kbd>Ctrl</kbd> + <kbd>S</kbd>.
 
 You can customize the key binding in your `~/.tmux.conf`:
 ```bash
@@ -48,7 +48,7 @@ set -g @toggle-status-key 'X'  # Replace 'X' with your preferred key
 
 ## Usage
 
-1. Press `prefix` + <kbd>Ctrl</kbd> + <kbd>T</kbd> (or your custom key binding) to toggle the status bar
+1. Press `prefix` + <kbd>Ctrl</kbd> + <kbd>S</kbd> (or your custom key binding) to toggle the status bar
 2. The status bar will toggle between visible and hidden states
 
 ## License
