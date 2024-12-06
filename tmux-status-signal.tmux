@@ -19,5 +19,14 @@ fi
 # Make script executable if it isn't already
 chmod +x "$TOGGLE_SCRIPT"
 
-# Set up key binding
-tmux bind-key C-S run-shell "$TOGGLE_SCRIPT"
+# Get custom key binding or use default
+key_binding="$(tmux show-option -gqv @toggle-status-key)"
+if [ -z "$key_binding" ]; then
+    key_binding="M-s"  # Default to Alt+s to avoid Emacs keybinding conflicts
+fi
+
+# Remove existing binding if it exists
+tmux unbind-key "$key_binding" 2>/dev/null
+
+# Set up new key binding
+tmux bind-key "$key_binding" run-shell "$TOGGLE_SCRIPT"
