@@ -1,35 +1,18 @@
 #!/usr/bin/env bash
+#
+# tmux-status-signal: Toggle tmux status bar with a single keypress
+#
 
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# Function to get the current status bar state
-get_status_state() {
-    tmux show -g status | cut -d' ' -f2
-}
-
-# Function to toggle the status bar
-toggle_status() {
-    local current_state=$(get_status_state)
-    if [ "$current_state" = "on" ]; then
-        tmux set -g status off
-    else
-        tmux set -g status on
-    fi
-}
-
-# Get custom key binding or use default
+# Get custom key binding or use default (Alt+s)
 key_binding="$(tmux show-option -gqv @toggle-status-key)"
-if [ -z "$key_binding" ]; then
-    key_binding="M-s"  # Default to Alt+s to avoid Emacs keybinding conflicts
-fi
+: "${key_binding:=M-s}"
 
-# Remove existing binding if it exists
+# Silently unbind - expected to fail if key not previously bound
 tmux unbind-key -n "$key_binding" 2>/dev/null
 
-# Set up new key binding
+# Bind toggle key (no prefix required)
 tmux bind-key -n "$key_binding" run-shell "\
-    current_state=\$(tmux show -g status | cut -d' ' -f2); \
-    if [ \"\$current_state\" = \"on\" ]; then \
+    if [ \"\$(tmux show -g status | cut -d' ' -f2)\" = 'on' ]; then \
         tmux set -g status off; \
     else \
         tmux set -g status on; \

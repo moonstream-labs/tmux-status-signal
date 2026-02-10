@@ -45,8 +45,12 @@ By default, the status bar toggle is bound to <kbd>Alt</kbd> + <kbd>s</kbd>.
 
 You can customize the key binding in your `~/.tmux.conf`:
 ```bash
+# Set custom key BEFORE the plugin line
 set -g @toggle-status-key 'M-t'  # Changes binding to Alt+t
+set -g @plugin 'moonstream-labs/tmux-status-signal'
 ```
+
+**Important:** The `@toggle-status-key` option must be set *before* the plugin is loaded, as the plugin reads this value during initialization.
 
 Common key binding prefixes:
 - `M-` for Alt/Meta key
@@ -65,6 +69,13 @@ Note: When choosing a key binding, be mindful of potential conflicts with your s
 - Works with tmux version 2.1 and later
 - Compatible with most tmux themes and status line customization plugins
 - Designed to work alongside common terminal emulators and shell configurations
+
+## Troubleshooting
+
+- **Key binding not working:** Ensure `@toggle-status-key` is set before the plugin line in your config
+- **Conflicts with terminal:** Some terminal emulators capture Alt+key combinations; try a different binding or configure your terminal to pass through Alt keys
+- **Plugin not loading:** Verify TPM is installed and initialized (check for `run '~/.tmux/plugins/tpm/tpm'` at the end of your config)
+- **Changes not taking effect:** Reload your config with `tmux source-file ~/.tmux.conf` or restart tmux
 
 ## License
 
